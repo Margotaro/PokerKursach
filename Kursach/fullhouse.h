@@ -7,10 +7,10 @@
 class FullHouse : public Combination
 {
 public:
-    FullHouse(Card* tKindOfSet, Card* tKindOfPair);
+    FullHouse(Rank tKindOfSet, Rank tKindOfPair);
     Rank getRankOfSet();
     Rank getRankOfPair();
-    virtual bool compareTo(Combination *c);
+    virtual int compareTo(Combination *c);
 private:
     Rank FullSet;
     Rank FullPair;

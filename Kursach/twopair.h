@@ -8,8 +8,7 @@ class TwoPair : public Combination
 public:
     TwoPair(Rank tFirstRank, Rank tSecondRank);
     Rank getMaxRankOfCard();
-
-    virtual bool compareTo(Combination *c);
+    virtual int compareTo(Combination *c);
 private:
     Rank MaxRank;
     int value;

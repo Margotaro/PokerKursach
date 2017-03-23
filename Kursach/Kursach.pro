@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     straight.cpp \
     set.cpp \
     twopair.cpp \
-    onepair.cpp
+    onepair.cpp \
+    highcard.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -52,4 +53,5 @@ HEADERS += \
     straight.h \
     set.h \
     twopair.h \
-    onepair.h
+    onepair.h \
+    highcard.h

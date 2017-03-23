@@ -2,10 +2,12 @@
 
 FlashRoyale::FlashRoyale()
 {
-    value = 20;
+    value = 19;
 }
 
-bool FlashRoyale::compareTo(Combination *c)
+int FlashRoyale::compareTo(Combination *c)
 {
-    return c->getValue() == value;
+    if (c->getValue() == value)
+        return 0;
+    else return 1;
 }

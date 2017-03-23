@@ -1,4 +1,4 @@
-#ifndef STRAIGTFLUSH_H
+#ifndef STRAIGHTFLUSH_H
 #define STRAIGHTFLUSH_H
 
 #include "card.h"
@@ -7,11 +7,12 @@
 class StraightFlush : public Combination
 {
 public:
-    StraightFlush(Card* tHighestCard);
-    Card* getHighestCard();
-    virtual bool compareTo(Combination *c);
+    StraightFlush(Rank tHighestCard);
+    Rank getHighestCard();
+    virtual int compareTo(Combination *c);
+    int getValue();
 private:
-    Card* highestCard;
+    Rank highestCard;
     int value;
 };
 

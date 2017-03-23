@@ -1,10 +1,10 @@
 #include "fullhouse.h"
 
-FullHouse::FullHouse(Card *tKindOfSet, Card *tKindOfPair)
+FullHouse::FullHouse(Rank tKindOfSet, Rank tKindOfPair)
 {
-    FullSet = tKindOfSet->getRank();
-    FullPair = tKindOfPair->getRank();
-    value = 17;
+    FullSet = tKindOfSet;
+    FullPair = tKindOfPair;
+    value = 16;
 }
 
 Rank FullHouse::getRankOfPair()
@@ -17,13 +17,24 @@ Rank FullHouse::getRankOfSet()
     return FullSet;
 }
 
-bool FullHouse::compareTo(Combination *c)
+int FullHouse::compareTo(Combination *c)
 {
     if(c->getValue() < value)
-        return true;
+        return 1;
     if(c->getValue() > value)
-        return false;
+        return -1;
     if(FullSet != ((FullHouse*)c)->getRankOfSet())
-        return FullSet > ((FullHouse*)c)->getRankOfSet();
-    return FullPair > ((FullHouse*)c)->getRankOfPair();
+    {
+        if(FullSet > ((FullHouse*)c)->getRankOfSet())
+            return 1;
+        else if(FullSet == ((FullHouse*)c)->getRankOfSet())
+            return 0;
+        return -1;
+    }
+
+    if(FullPair > ((FullHouse*)c)->getRankOfPair())
+            return 1;
+    else if(FullPair == ((FullHouse*)c)->getRankOfPair())
+            return 0;
+        return -1;
 }

@@ -9,7 +9,7 @@ class Straight : public Combination
 public:
     Straight(Rank tFemale);
     Rank getHighestCard();
-    virtual bool compareTo(Combination *c);
+    virtual int compareTo(Combination *c);
 private:
     Rank female;
     int value;

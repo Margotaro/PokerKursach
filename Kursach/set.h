@@ -8,7 +8,7 @@ class Set : public Combination
 public:
     Set(Rank t3KindCard);
     Rank getRankOfCard();
-    virtual bool compareTo(Combination *c);
+    virtual int compareTo(Combination *c);
 private:
     Rank ThreeKindCard;
     int value;

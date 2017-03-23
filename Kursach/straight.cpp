@@ -3,7 +3,7 @@
 Straight::Straight(Rank tFemale)
 {
     female = tFemale;
-    value = 15;
+    value = 14;
 }
 
 Rank Straight::getHighestCard()
@@ -11,11 +11,15 @@ Rank Straight::getHighestCard()
     return female;
 }
 
-bool Straight::compareTo(Combination *c)
+int Straight::compareTo(Combination *c)
 {
     if(c->getValue() < value)
-        return true;
+        return 1;
     if(c->getValue() > value)
-        return false;
-    return female > ((Straight*)c)->getHighestCard();
+        return -1;
+    else if(female > ((Straight*)c)->getHighestCard())
+        return 1;
+    else if(female == ((Straight*)c)->getHighestCard())
+        return 0;
+    return -1;
 }

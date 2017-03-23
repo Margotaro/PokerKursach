@@ -3,7 +3,7 @@
 OnePair::OnePair(Rank tRank)
 {
     rank = tRank;
-    value = 13;
+    value = 11;
 }
 
 Rank OnePair::getRankOfCard()
@@ -11,11 +11,15 @@ Rank OnePair::getRankOfCard()
     return rank;
 }
 
-bool OnePair::compareTo(Combination *c)
+int OnePair::compareTo(Combination *c)
 {
     if(c->getValue() < value)
-        return true;
+        return 1;
     if(c->getValue() > value)
-        return false;
-    return Rank > ((OnePair*)c)->getRankOfCard();
+        return -1;
+    else if(rank > ((OnePair*)c)->getRankOfCard())
+        return 1;
+    else if(rank == ((OnePair*)c)->getRankOfCard())
+        return 0;
+    return -1;
 }

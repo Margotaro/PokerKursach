@@ -1,22 +1,30 @@
 #include "straightflush.h"
 
-
-StraightFlush::StraightFlush(Card* tHighestCard)
+StraightFlush::StraightFlush(Rank tHighestCard)
 {
     highestCard = tHighestCard;
-    value = 19;
+    value = 18;
 }
 
-Card* StraightFlush::getHighestCard()
+int StraightFlush::getValue()
+{
+    return value;
+}
+
+Rank StraightFlush::getHighestCard()
 {
     return highestCard;
 }
 
-bool StraightFlush::compareTo(Combination *c)
+int StraightFlush::compareTo(Combination *c)
 {
     if(c->getValue() < value)
-        return true;
-    if(c->getValue() > value)
-        return false;
-    return highestCard->getRank() > ((StraightFlush*)c)->getHighestCard()->getRank();
+        return 1;
+    else if(c->getValue() > value)
+        return -1;
+    else if(highestCard > ((StraightFlush*)c)->getHighestCard())
+        return 1;
+    else if(highestCard == ((StraightFlush*)c)->getHighestCard())
+        return 0;
+    return -1;
 }

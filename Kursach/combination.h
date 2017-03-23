@@ -7,7 +7,7 @@ class Combination
 public:
     Combination();
     int getValue();
-    virtual bool compareTo(Combination* c) = 0;
+    virtual int compareTo(Combination* c) = 0;
 private:
     int value;
 };

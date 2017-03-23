@@ -9,7 +9,7 @@ public:
     OnePair(Rank tRank);
     Rank getRankOfCard();
 
-    virtual bool compareTo(Combination *c);
+    virtual int compareTo(Combination *c);
 private:
     Rank rank;
     int value;

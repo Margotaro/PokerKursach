@@ -10,7 +10,7 @@ TwoPair::TwoPair(Rank tFirstRank, Rank tSecondRank)
     {
         MaxRank = tSecondRank;
      }
-    value = 14;
+    value = 12;
 }
 
 Rank TwoPair::getMaxRankOfCard()
@@ -18,13 +18,15 @@ Rank TwoPair::getMaxRankOfCard()
     return MaxRank;
 }
 
-bool TwoPair::compareTo(Combination *c)
+int TwoPair::compareTo(Combination *c)
 {
     if(c->getValue() < value)
-        return true;
-    if(c->getValue() > value)
-        return false;
-    if(MaxRank > ((TwoPair*)c)->getMaxRankOfCard())
-        return true;
-    return false;
+        return 1;
+    else if(c->getValue() > value)
+        return -1;
+    else if(MaxRank > ((TwoPair*)c)->getMaxRankOfCard())
+        return 1;
+    else if(MaxRank == ((TwoPair*)c)->getMaxRankOfCard())
+        return 0;
+    return -1;
 }

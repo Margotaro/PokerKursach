@@ -1,10 +1,9 @@
 #include "set.h"
-#include "card.h"
 
-Set::ThreeOfaKind(Rank t3KindCard)
+Set::Set(Rank t3KindCard)
 {
     ThreeKindCard = t3KindCard;
-    value = 14;
+    value = 13;
 }
 
 Rank Set::getRankOfCard()
@@ -12,11 +11,15 @@ Rank Set::getRankOfCard()
     return ThreeKindCard;
 }
 
-bool Set::compareTo(Combination *c)
+int Set::compareTo(Combination *c)
 {
     if(c->getValue() < value)
-        return true;
+        return 1;
     if(c->getValue() > value)
-        return false;
-    return ThreeKindCard > ((Set*)c)->getRankOfCard();
+        return -1;
+    else if(ThreeKindCard > ((Set*)c)->getRankOfCard())
+        return 1;
+    else if(ThreeKindCard == ((Set*)c)->getRankOfCard())
+        return 0;
+    return -1;
 }

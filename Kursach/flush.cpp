@@ -3,13 +3,8 @@
 Flush::Flush(QList<Card*> tFlush)
 {
     flush = tFlush;
-    qSort(flush.begin(), flush.end(), compareCards);
-    value = 16;
-}
-
-bool compareCards(Card* c1, Card* c2)
-{
-    return c1->getRank() > c2->getRank();
+    qSort(flush.begin(), flush.end(), [](Card* c1, Card* c2) -> bool { return c1->getRank() > c2->getRank(); });
+    value = 15;
 }
 
 QList<Card*> Flush::getCards()
@@ -17,14 +12,16 @@ QList<Card*> Flush::getCards()
     return flush;
 }
 
-bool Flush::compareTo(Combination *c)
+int Flush::compareTo(Combination *c)
 {
     if(c->getValue() < value)
-        return true;
+        return 1;
     if(c->getValue() > value)
-        return false;
+        return -1;
     for(int i = 0; i < 5; i++)
         if(((Flush*)c)->getCards()[i]->getRank() < flush[i]->getRank())
-            return true;
-    return false;
+            return 1;
+        else if(((Flush*)c)->getCards()[i]->getRank() == flush[i]->getRank())
+            return 0;
+    return -1;
 }

@@ -4,11 +4,11 @@
 #include "combination.h"
 #include <QList>
 
-class FlashRoyale : private Combination
+class FlashRoyale : public Combination
 {
 public:
     FlashRoyale();
-    virtual bool compareTo(Combination *c);
+    virtual int compareTo(Combination *c);
 private:
     int value;
 };

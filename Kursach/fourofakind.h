@@ -6,9 +6,10 @@
 class FourOfaKind : public Combination
 {
 public:
-    FourOfaKind(Card* t4KindCard);
+    FourOfaKind();
+    FourOfaKind(Rank t4KindCard);
     Rank getRankOfCard();
-    virtual bool compareTo(Combination *c);
+    virtual int compareTo(Combination *c);
 private:
     Rank FourKindCard;
     int value;
