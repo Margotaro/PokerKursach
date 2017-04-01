@@ -12,7 +12,6 @@ public:
     virtual int compareTo(Combination *c);
 private:
     Rank rank;
-    int value;
 };
 
 #endif // ONEPAIR_H

@@ -16,7 +16,6 @@ public:
     bool compareCards(Card *c1, Card *c2);
 private:
     QList<Card*> flush;
-    int value;
 
 };
 

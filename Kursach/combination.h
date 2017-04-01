@@ -8,7 +8,7 @@ public:
     Combination();
     int getValue();
     virtual int compareTo(Combination* c) = 0;
-private:
+protected:
     int value;
 };
 

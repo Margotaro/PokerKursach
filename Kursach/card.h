@@ -21,6 +21,8 @@ public:
     Suit getSuit();
     void setRank(Rank trank);
     Rank getRank();
+
+    friend bool operator ==(const Card& lCard, const Card& rCard);
 };
 
 #endif // CARD_H

@@ -12,7 +12,6 @@ public:
     virtual int compareTo(Combination *c);
 private:
     Rank MaxRank;
-    int value;
 };
 
 #endif // HIGHCARD_H

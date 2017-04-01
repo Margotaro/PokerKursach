@@ -1,4 +1,5 @@
 #include "straightflush.h"
+#include "detectcombination.h"
 
 StraightFlush::StraightFlush(Rank tHighestCard)
 {

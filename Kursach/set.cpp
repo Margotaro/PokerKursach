@@ -1,4 +1,5 @@
 #include "set.h"
+#include "detectcombination.h"
 
 Set::Set(Rank t3KindCard)
 {

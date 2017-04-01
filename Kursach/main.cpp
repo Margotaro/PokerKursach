@@ -2,8 +2,6 @@
 #include <iostream>
 #include "card.h"
 #include "detectcombination.h"
-#include "flashroyale.h"
-#include "straightflush.h"
 #include <QList>
 using namespace std;
 
@@ -35,6 +33,10 @@ int main(int argc, char *argv[])
         << new Card(Suit::HEARTS, Rank::SIX) << new Card(Suit::DIAMONDS, Rank::EIGHT) << new Card(Suit::CLUBS, Rank::NINE);
 
 
+    Combination* cc = new FlashRoyale();
+    Combination* cc1 = new StraightFlush(Rank::KING);
+    cout << endl << "-------" << endl << cc1->compareTo(cc) << endl << "--------" << endl;
+
     QList <Card* > flashroyale2, straightflush2, fourofakind2, fullhouse2, flush2, straight2, set2, twopairs2, pair2, ace2;
     flashroyale2 << new Card(Suit::DIAMONDS, Rank::QUEEN) << new Card(Suit::DIAMONDS, Rank::ACE)
                  << new Card(Suit::DIAMONDS, Rank::TEN) << new Card(Suit::DIAMONDS, Rank::JACK) << new Card(Suit::DIAMONDS, Rank::KING);
@@ -56,9 +58,7 @@ int main(int argc, char *argv[])
     ace2 << new Card(Suit::DIAMONDS, Rank::TWO) <<new Card(Suit::CLUBS, Rank::FOUR)
          << new Card(Suit::HEARTS, Rank::SIX) <<new  Card(Suit::DIAMONDS, Rank::EIGHT) << new Card(Suit::CLUBS, Rank::ACE);
 
-    //Combination* try_ = DetectCombination::Detect(flashroyale2);
-
-    cout << (DetectCombination::Detect(flashroyale2))->compareTo(DetectCombination::Detect(flashroyale)) << endl;
+    cout << (DetectCombination::Detect(flashroyale2))->compareTo(DetectCombination::Detect(fourofakind)) << endl;
     cout << (DetectCombination::Detect(straightflush))->compareTo(DetectCombination::Detect(straightflush2)) << endl;
     cout << (DetectCombination::Detect(fourofakind2))->compareTo(DetectCombination::Detect(fourofakind)) << endl;
     cout << (DetectCombination::Detect(fullhouse))->compareTo(DetectCombination::Detect(fullhouse2)) << endl;

@@ -6,13 +6,12 @@
 class FourOfaKind : public Combination
 {
 public:
-    FourOfaKind();
+    FourOfaKind::FourOfaKind() : Combination() { value = 17; }
     FourOfaKind(Rank t4KindCard);
     Rank getRankOfCard();
     virtual int compareTo(Combination *c);
 private:
     Rank FourKindCard;
-    int value;
 };
 
 #endif // FOUROFAKIND_H

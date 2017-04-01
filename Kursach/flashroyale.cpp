@@ -1,11 +1,12 @@
 #include "flashroyale.h"
+#include "detectcombination.h"
 
 FlashRoyale::FlashRoyale()
 {
     value = 19;
 }
 
-int FlashRoyale::compareTo(Combination *c)
+int FlashRoyale::compareTo(Combination* c)
 {
     if (c->getValue() == value)
         return 0;

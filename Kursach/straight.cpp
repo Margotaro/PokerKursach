@@ -1,4 +1,5 @@
 #include "straight.h"
+#include "detectcombination.h"
 
 Straight::Straight(Rank tFemale)
 {

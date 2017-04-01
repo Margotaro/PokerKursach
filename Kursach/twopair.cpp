@@ -1,4 +1,5 @@
 #include "twopair.h"
+#include "detectcombination.h"
 
 TwoPair::TwoPair(Rank tFirstRank, Rank tSecondRank)
 {

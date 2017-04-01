@@ -1,4 +1,5 @@
 #include "fullhouse.h"
+#include "detectcombination.h"
 
 FullHouse::FullHouse(Rank tKindOfSet, Rank tKindOfPair)
 {

@@ -1,4 +1,5 @@
 #include "highcard.h"
+#include "detectcombination.h"
 
 HighCard::HighCard(Rank theHighCard)
 {

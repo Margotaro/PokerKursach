@@ -1,12 +1,8 @@
 #include "fourofakind.h"
 #include "card.h"
+#include "detectcombination.h"
 #include <iostream>
 
-
-FourOfaKind::FourOfaKind()
-{
-    value = 17;
-}
 
 FourOfaKind::FourOfaKind(Rank t4KindCard)
 {

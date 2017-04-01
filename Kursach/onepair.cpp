@@ -1,4 +1,5 @@
 #include "onepair.h"
+#include "detectcombination.h"
 
 OnePair::OnePair(Rank tRank)
 {

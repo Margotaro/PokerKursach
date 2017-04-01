@@ -1,5 +1,4 @@
 #include "detectcombination.h"
-#include <iostream>
 
 using namespace std;
 
@@ -338,7 +337,7 @@ TwoPair* DetectCombination::DetectTwoPair(QList<Card*> cards)
     }
 
     if(twopair[0] && twopair[1])
-        return new TwoPair((Rank) rankOfPair1, (Rank) rankOfPair2);
+        return new TwoPair((Rank)rankOfPair1, (Rank)rankOfPair2);
     return nullptr;
 }
 
@@ -362,6 +361,6 @@ OnePair* DetectCombination::DetectOnePair(QList<Card*> cards)
     }
 
     if(rankOfPair)
-        return new OnePair((Rank) rankOfPair);
+        return new OnePair((Rank)rankOfPair);
     return nullptr;
 }

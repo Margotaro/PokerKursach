@@ -1,4 +1,5 @@
 #include "flush.h"
+#include "detectcombination.h"
 
 Flush::Flush(QList<Card*> tFlush)
 {

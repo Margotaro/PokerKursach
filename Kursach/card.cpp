@@ -32,3 +32,7 @@ Rank Card::getRank()
     return m_rank;
 }
 
+bool operator !=(const Card& lCard, const Card& rCard)
+{
+    return ((lCard.getRank() == rCard.getRank())&&(lCard.getSuit() == rCard.getSuit()));
+}

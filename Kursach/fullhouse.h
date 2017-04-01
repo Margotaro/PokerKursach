@@ -14,9 +14,6 @@ public:
 private:
     Rank FullSet;
     Rank FullPair;
-
-
-    int value;
 };
 
 #endif // FULLHOUSE_H

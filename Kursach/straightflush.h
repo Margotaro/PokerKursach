@@ -13,7 +13,6 @@ public:
     int getValue();
 private:
     Rank highestCard;
-    int value;
 };
 
 #endif // STRAIGHTFLUSH_H
