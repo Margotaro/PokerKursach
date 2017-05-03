@@ -17,13 +17,6 @@ Rank FourOfaKind::getRankOfCard()
 
 int FourOfaKind::compareTo(Combination *c)
 {
-    std::cout << "Program has been here" << std::endl;
-    std::cout << "Value c: " << c->getValue()<< std::endl;
-    std::cout << "Value this:" << value << std::endl;
-
-    std::cout << "((FourOfaKind*)c)->getRankOfCard()) :" << (((FourOfaKind*)c)->getRankOfCard()) << std::endl;
-    std::cout << "The highest out of four(this):" << FourKindCard << std::endl;
-
     if(c->getValue() < value)
         return 1;
     else if(c->getValue() > value)

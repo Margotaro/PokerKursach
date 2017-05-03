@@ -21,31 +21,49 @@ Combination* DetectCombination::Detect(QList<Card *> cards)
     Combination* current = nullptr;
     current = detector.DetectFlashRoyale(cards);
     if(current != nullptr)
+    {
         return current;
+    }
     current = detector.DetectStraightFlush(cards);
     if(current != nullptr)
+    {
         return current;
+    }
     current = detector.DetectFourOfaKind(cards);
     if(current != nullptr)
+    {
         return current;
+    }
     current = detector.DetectFullHouse(cards);
     if(current != nullptr)
+    {
         return current;
+    }
     current = detector.DetectFlush(cards);
     if(current != nullptr)
+    {
         return current;
+    }
     current = detector.DetectStraight(cards);
     if(current != nullptr)
+    {
         return current;
+    }
     current = detector.DetectSet(cards);
     if(current != nullptr)
+    {
         return current;
+    }
     current = detector.DetectTwoPair(cards);
     if(current != nullptr)
+    {
         return current;
+    }
     current = detector.DetectOnePair(cards);
     if(current != nullptr)
+    {
         return current;
+    }
     return new HighCard((detector.getHighestCard(cards))->getRank());
 }
 
@@ -105,8 +123,9 @@ FlashRoyale* DetectCombination::DetectFlashRoyale(QList<Card *> cards)
     for(int i = 0; i < 5; i++)
         if(!maybeCombination[i]) isAll = false;
     if(isAll)
+    {
         return new FlashRoyale();
-
+    }
     for(int i = 0; i < 5; i++)
         maybeCombination[i] = false;
     if(spades.length() >= 5)
@@ -127,6 +146,7 @@ Flush* DetectCombination::DetectFlush(QList<Card *> cards)
     n_spades.clear();
     n_clubs.clear();
     n_diamonds.clear();
+
 
     for (int i = 0; i < cards.length(); i++)
     {
