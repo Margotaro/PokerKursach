@@ -15,7 +15,8 @@ Card::Card(Suit tsuit, Rank trank)
 
     QString suits = "DHSC";
     QString tPngName = "C:\\Users\\Margotaro\\Desktop\\REPOSITORY\\PokerKursach\\PekorCards\\" + suits[tsuit-1] + QString::number(trank+1) + ".png";
-    pixure.load(tPngName);
+    picture = new QPixmap();
+    picture->load(tPngName);
 }
 
 void Card::setSuit(Suit tsuit)
@@ -114,7 +115,7 @@ ostream& operator <<(ostream &os, const Card &c)
      return os;
 }
 
-QPixmap Card::getCardFace() const
+QPixmap* Card::getCardFace() const
 {
-    return pixure;
+    return picture;
 }

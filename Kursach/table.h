@@ -8,16 +8,18 @@
 #include <QList>
 #include <vector>
 #include <QLabel>
+#include "game.h"
+#include "mainwindow.h"
 
 class AI;
 class You;
 class Player;
+class MainWindow;
 
 class Table
 {
     QList<Card*> CommunityCards;
     int Pot;
-    vector<int> bets;
 
 public:
 
@@ -31,9 +33,9 @@ public:
     QList<Card *> getCommunityCards();
     void addToCommunityCards(Card* card);
     int getPot();
-    void putInPot(int cs[]);
-    void giveaPotToWinner(Player* player);
-    void makeaBet();
+    void putBetsInPot();
+    void giveaPotToWinner(Player* player, int numofwinners);
+    void putaBet(int i, int chips);
     bool callCheck();
     void leaveTheGame(int player);
     MainWindow* mainWindow;

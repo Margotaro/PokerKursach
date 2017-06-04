@@ -18,7 +18,7 @@ private:
     Suit m_suit;
     Rank m_rank;
     bool result;
-    QPixmap pixure;
+    QPixmap* picture;
     
 public:
     Card();
@@ -27,7 +27,7 @@ public:
     Suit getSuit() const;
     void setRank(Rank trank);
     Rank getRank() const;
-    QPixmap getCardFace() const;
+    QPixmap* getCardFace() const;
     string ToString() const;
 
     friend bool operator ==(const Card& lCard, const Card& rCard);

@@ -62,8 +62,7 @@ HEADERS += \
     you.h \
     table.h
 
-RESOURCES += \
-    cardimages.qrc
+RESOURCES +=
 
 DISTFILES += \
     ../PekorCards/C2.png \
@@ -117,7 +116,8 @@ DISTFILES += \
     ../PekorCards/S11.png \
     ../PekorCards/S12.png \
     ../PekorCards/S13.png \
-    ../PekorCards/S14.png
+    ../PekorCards/S14.png \
+    ../TemporaryFiles/fon.jpg
 
 FORMS += \
     mainwindow.ui

@@ -40,6 +40,10 @@ Card* CardDesk::giveTopCard()
 
 void CardDesk::fill()
 {
+
+    if(!(Deck.isEmpty()))
+            Deck.clear();
+
     for(int s = DIAMONDS; s <=CLUBS; s++)
     {
         for(int r = TWO; r <=ACE; r++)

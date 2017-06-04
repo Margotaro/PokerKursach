@@ -11,29 +11,52 @@ void AI::TakeaCard(Card* card)
     desk << card;
     QLabel* label = new QLabel(MainWindow::getInstance());
     label->setGeometry((desk.length() + 1) * 110, 0 , 100, 160);
-    label->setPixmap(card->getCardFace());
+    label->setPixmap(*(card->getCardFace()));
 }
 
-void AI::Parlay(Table* t)
+int AI::Parlay(Table* t)
 {
     float persentage = GetConfidence(desk.getDeck(), t->getCommunityCards());
-    float decision = std::pow(persentage, 4);
-    if(decision <= 30)
-        Fold();
-    else if((decision <= 60)&&(t->callCheck()))
-        Check();
-    else if(decision <= 60)
-        Call();
-    else if(decision <= 90)
-        Raise(decision);
-    else
-        AllIn();
+    float decision;
+    if(ChipStack - Player::getMinimumBet() > 0) {
+        cout << endl << ChipStack << ' ' << Player::getMinimumBet() << endl;
+        float x = Player::getMinimumBet() / ChipStack;
+        decision = (x * std::pow(2 * std::asin(persentage) / 3.1415926535, 3) + persentage * (1 - x));
+    }
+    else {
+        decision = std::pow(persentage, 4);
+        if(decision > 0.9)
+            return AllIn();
+        else
+           return Fold();
+    }
+    cout << "decision: " << decision << endl;
+    if(decision <= 0.15) {
+       cout << "Fold" << endl;
+       return Fold();
+    }
+    else if((decision <= 0.6)&&(t->callCheck())) {
+       cout << "Check" << endl;
+       return Check();
+    }
+    else if(decision <= 0.6) {
+       cout << "Call" << endl;
+       return Call();
+    }
+    else if(decision <= 0.9) {
+       cout << "Raise" << endl;
+       return Raise(decision*20);//Обрати внимание!!!
+    }
+    else {
+       cout << "AllIN" << endl;
+       return AllIn();
+    }
 }
 
 float AI::GetConfidence(QList<Card*> &myDeck, QList<Card*> &mainDeck)
 {
     float confidence = 0;
-    float consсiousness = 0; //TODO: translate!!
+    float consсiousness = 0;
 
     QList<Card*> summa = myDeck+mainDeck;
 

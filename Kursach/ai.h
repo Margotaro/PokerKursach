@@ -20,8 +20,7 @@ public:
     // Процентность вероятности удачной комбинации, симуляция artifical intelligence
     float GetConfidence(QList<Card*> &myDeck, QList<Card*> &mainDeck);
     // Cделать ставку
-    virtual void Parlay(Table *t);
-
+    virtual int Parlay(Table *t);
 };
 
 #endif // AI_H
