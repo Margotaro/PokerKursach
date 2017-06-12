@@ -8,6 +8,7 @@
 #include <QList>
 
 #include <iostream>
+
 using namespace std;
 
 class Game
@@ -16,6 +17,7 @@ private:
     static Table* table;
     static CardDesk* carddesk;
     static QList<Combination* > playerCombinations;
+    static int numofcommunitycards;
 public:
     Game();
     static Table* getTable();

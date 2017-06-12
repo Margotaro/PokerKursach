@@ -5,6 +5,7 @@ QList<Player*> Game::activePlayers = QList<Player*>();
 CardDesk* Game::carddesk = new CardDesk();
 Table* Game::table = new Table(2000);
 QList<Combination*> Game::playerCombinations = QList<Combination*>();
+int Game::numofcommunitycards = 0;
 
 Game::Game()
 {
@@ -12,7 +13,7 @@ Game::Game()
 
 void Game::Play()
 {
-//    while(table->players.size() > 1)
+ //   while(table->players.size() > 1)
         Round();
 }
 
@@ -21,6 +22,8 @@ void Game::Round()
 
     activePlayers = table->players;
 
+
+    numofcommunitycards = 0;
     carddesk->fill();
     carddesk->shuffle();
 
@@ -34,20 +37,15 @@ void Game::Round()
     assert (table->players.size() >= 2);
 
     int last = activePlayers.size() - 1;
-    int BB = activePlayers[0]->makeaBigBlind();
-    cout << "Big Blind by " << activePlayers[last]->showname() << " is " << BB << endl;
-
-    int SB = activePlayers[1]->makeaSmallBlind();
-    cout << "Small Blind by " << activePlayers[last - 1]->showname() << " is " << SB << endl;
+    int BB = activePlayers[last - 1]->makeaBigBlind();
+    MainWindow::getInstance()->changeCatBetBox(activePlayers[last - 1], BB);
+    int SB = activePlayers[last]->makeaSmallBlind();
+    MainWindow::getInstance()->changeCatBetBox(activePlayers[last], SB);
 
     Bidding(0);
-    cout << "Total pot is: " << table->getPot() << endl;
     Bidding(3);
-    cout << "Total pot is: " << table->getPot() << endl;
     Bidding(1);
-    cout << "Total pot is: " << table->getPot() << endl;
     Bidding(1);
-    cout << "Total pot is: " << table->getPot() << endl;
 
     QList<int> roundWinner;
     roundWinner.push_back(0);
@@ -56,8 +54,6 @@ void Game::Round()
         playerCombinations.push_back(nullptr);
         QList<Card* > pc = activePlayers[i]->getTwoCards() + table->getCommunityCards();
         playerCombinations[i] = DetectCombination::Detect(pc);
-
-        cout << "Im here!!!";
     }
 
 
@@ -78,7 +74,10 @@ void Game::Round()
     cout << "Total pot is: " << table->getPot() << endl;
 
     for(int i = 0; i < roundWinner.size(); i++)
+    {
         table->giveaPotToWinner(activePlayers[roundWinner[i]], roundWinner.size());
+        MainWindow::getInstance()->win(activePlayers[roundWinner[i]]);
+    }
 
     cout << "Round winners count is: " << roundWinner.size() << endl;
     cout << "Round winner's prize is: " << table->players[roundWinner[0]]->getChipStack() << endl;
@@ -106,23 +105,21 @@ Table* Game::getTable()
 void Game::Bidding(int numofcards)
 {
     cout << endl << endl << "-----------------------" << endl <<  "NEW ROUND" << endl << "---------------------------" << endl << endl;
-
-    for (int i = 0; i < numofcards; i++)
+  if(activePlayers.size() == 1)
+      return;
+  for (int i = 0; i < numofcards; i++)
+  {
         table->addToCommunityCards(carddesk->giveTopCard());
-//    int checks = 0;
+        MainWindow::getInstance()->showCommunityCard(numofcommunitycards);
+        numofcommunitycards++;
+  }
 
-//    for (int i = 2; (checks != activePlayers.size())||(activePlayers.size() == 1); i = (i + 1)%activePlayers.size())
   for(int j = 0 ; j < 2; j++)
   {
         for (int i = 0; (i < activePlayers.size())&&(activePlayers.size() > 1) ; i++ )
         {
-            cout << "i is " << i << " and size is " << activePlayers.size();
-
-            cout << endl << activePlayers[i]->showname() << ": " << endl;
-
             int tBet = (activePlayers[i])->Parlay(table);
-
-            cout << "tBet is: " << tBet << endl;
+            MainWindow::getInstance()->changeCatBetBox(activePlayers[i], tBet);
 
             if(tBet == -1)
             {
@@ -130,18 +127,15 @@ void Game::Bidding(int numofcards)
                 i--;
             }
 
-            //else if(tBet == 0)
-            //    checks += 1;
             else
             {
                 table->putaBet(i, tBet);
             }
-            //if(i == 0)
-            //    getchar();
 
         }
   }
 
   table->putBetsInPot();
+  MainWindow::getInstance()->changePot(table->getPot());
 
 }

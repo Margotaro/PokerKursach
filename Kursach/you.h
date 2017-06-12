@@ -13,7 +13,9 @@ class You : public Player
     Q_OBJECT
 
     static You* instance;
+    static int howManyCardsDoYouHaveRightNow;
     int yourDecision;
+    int sliderVariable;
     void setActiveForButtons(bool isActive);
 public:
     You(int cs = 0);
@@ -27,6 +29,7 @@ public slots:
     void YouCall();
     void YouFold();
     void YouAllIn();
+    void sliderValueChanged(int value);
 };
 
 #endif // YOU_H

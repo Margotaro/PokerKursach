@@ -3,18 +3,19 @@
 #include "carddesk.h"
 #include <QLabel>
 #include <QObject>
-#include <string>
+#include <QString>
 
 class Table;
+
+enum Name { FirstCat = 0, SecondCat = 1, ThirdCat = 2, FourthCat = 3, YourCat = 4};
 
 class Player : public QObject
 {
     Q_OBJECT
 protected:
-    int id;
     int ChipStack;
     CardDesk desk;
-    static int minimumBet;//минимальная ставка
+    static int minimumBet;
     bool outOfGame;
     bool outOfRound;
 
@@ -25,7 +26,7 @@ protected:
     //    3 - третий
     //    4 - четвертый соответственно
     int Place;
-    string name;//cut it
+    Name playerID;
     static int BigBlind;
 
     int Raise(int chips);
@@ -48,8 +49,8 @@ public:
     void switchRound();
     void takeaPot(int cs);
     Player(int cs = 0);
-    void setname(string name);//cut it
-    string showname();//cut it
+    void setLabelName(Name id);
+    Name getLabelName();
     int Bet;
 };
 

@@ -10,6 +10,7 @@
 #include <QLabel>
 #include "game.h"
 #include "mainwindow.h"
+#include <iostream>
 
 class AI;
 class You;

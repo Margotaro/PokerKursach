@@ -1,19 +1,21 @@
 #include "you.h"
 
 You* You::instance = 0;
+int You::howManyCardsDoYouHaveRightNow = 0;
 
 You::You(int cs) : Player(cs)
 {
     instance = this;
+    playerID = Name::YourCat;
     Place = 0;
 }
 
 void You::TakeaCard(Card* card)
 {
     desk << card;
-    QLabel* label = new QLabel(MainWindow::getInstance());
-    label->setGeometry(0,0,100, 160);
-    label->setPixmap(*(card->getCardFace()));
+    howManyCardsDoYouHaveRightNow++;
+    MainWindow::getInstance()->getOneYourCard(howManyCardsDoYouHaveRightNow)->setPixmap(*(card->getCardFace()));
+    MainWindow::getInstance()->getOneYourCard(howManyCardsDoYouHaveRightNow)->setScaledContents(true);
 }
 
 int You::Parlay(Table *t)
@@ -35,8 +37,15 @@ int You::Parlay(Table *t)
     QObject::connect(MainWindow::getInstance()->getfoldButton(), SIGNAL(clicked(bool)), this, SLOT(YouFold()));
     QObject::connect(MainWindow::getInstance()->getallInButton(), SIGNAL(clicked(bool)), this, SLOT(YouAllIn()));
     QObject::connect(MainWindow::getInstance()->getraiseButton(), SIGNAL(clicked(bool)), this, SLOT(YouRaise()));
-
+    QObject::connect(MainWindow::getInstance()->getRaiseSlider(), SIGNAL(valueChanged(int)),this,SLOT(sliderValueChanged(int)));
     return loop->exec();
+}
+
+void You::sliderValueChanged(int value)
+{
+    sliderVariable = value;
+    MainWindow::getInstance()->getCatBetLabel(Name::YourCat)->setText(QString::number(value + Bet));
+    MainWindow::getInstance()->getraiseButton()->setEnabled(true);
 }
 
 void You::setActiveForButtons(bool isActive)
@@ -44,7 +53,8 @@ void You::setActiveForButtons(bool isActive)
     MainWindow::getInstance()->getallInButton()->setEnabled(isActive);
     MainWindow::getInstance()->getcallOrCheckButton()->setEnabled(isActive);
     MainWindow::getInstance()->getfoldButton()->setEnabled(isActive);
-    MainWindow::getInstance()->getraiseButton()->setEnabled(isActive);
+    MainWindow::getInstance()->activateSlider(isActive);
+    MainWindow::getInstance()->getraiseButton()->setEnabled(false);
 }
 
 You* You::getInstance()
@@ -55,8 +65,7 @@ You* You::getInstance()
 void You::YouRaise()
 {
     std::cout << "You've raised";
-    int raiseChips = 20;
-    yourDecision = Raise(raiseChips);
+    yourDecision = Raise(sliderVariable);
     setActiveForButtons(false);
     loop->exit(yourDecision);
 }

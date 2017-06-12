@@ -104,12 +104,12 @@ QList<Card* > Player::getTwoCards()
     return desk.getDeck();
 }
 
-void Player::setname(string tname)
+void Player::setLabelName(Name id)
 {
-    name = tname;
+    playerID = id;
 }
 
-string Player::showname()
+Name Player::getLabelName()
 {
-    return name;
+    return playerID;
 }

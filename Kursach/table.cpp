@@ -6,16 +6,15 @@ Table::Table(int cs)
     Pot = 0;
 
     firstCat = new AI(cs);
+    firstCat->setLabelName(Name::FirstCat);
     secondCat = new AI(cs);
+    secondCat->setLabelName(Name::SecondCat);
     thirdCat = new AI(cs);
+    thirdCat->setLabelName(Name::ThirdCat);
     fourthCat = new AI(cs);
+    fourthCat->setLabelName(Name::FourthCat);
     mainPlayer = new You(cs);
-
-    firstCat->setname("first kitten");
-    secondCat->setname("second kitten");
-    thirdCat->setname("third kitten");
-    fourthCat->setname("fourth kitten");
-    mainPlayer->setname("you");
+    mainPlayer->setLabelName(Name::YourCat);
 
     players << firstCat;
     players << secondCat;
@@ -60,8 +59,17 @@ void Table::giveaPotToWinner(Player *player, int numofwinners)
 
 bool Table::callCheck()
 {
-    for(int i = 0; i < players.size() - 1; i++)
-        if((players[i]->Bet != players[i + 1]->Bet)&&(!players[i]->isOutOfRound())&&(!players[i + 1]->isOutOfRound()))
+        int mainIndex;
+        for(int i = 0; i < players.size() - 1; i++)
+        {
+            if(!players[i]->isOutOfRound())
+               {
+                mainIndex = i;
+                break;
+                }
+        }
+        for(int i = mainIndex + 1; i < players.size(); i++)
+        if((players[mainIndex]->Bet != players[i]->Bet)&&(!players[i]->isOutOfRound())&&(players[i]->Bet != 0))
             return false;
     return true;
 }
