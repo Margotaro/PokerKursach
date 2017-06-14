@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QObject>
 #include <QString>
+#include "mainwindow.h"
 
 class Table;
 
@@ -47,6 +48,7 @@ public:
     int makeaSmallBlind();
     void setaMinimumBet(int minBet);
     void switchRound();
+//    void switchBidding();
     void takeaPot(int cs);
     Player(int cs = 0);
     void setLabelName(Name id);

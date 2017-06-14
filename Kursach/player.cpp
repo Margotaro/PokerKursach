@@ -63,6 +63,18 @@ void Player::switchRound()
     outOfRound = false;
 }
 
+//void Player::switchBidding()
+//{
+//    if(outOfGame)
+//        MainWindow::getInstance()->getCatBetLabel(table->players[i]->getLabelName())->setText("left");
+//    else if(outOfRound)
+//        MainWindow::getInstance()->getCatBetLabel(table->players[i]->getLabelName())->setText("folded");
+//    else
+//    MainWindow::getInstance()->getCatBetLabel(table->players[i]->getLabelName())->setText("0");
+//    cout << "He " << playerID <<
+
+//}
+
 void Player::takeaPot(int cs)
 {
     ChipStack += cs;

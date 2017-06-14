@@ -137,5 +137,9 @@ void Game::Bidding(int numofcards)
 
   table->putBetsInPot();
   MainWindow::getInstance()->changePot(table->getPot());
+    for(int i = 0; i < table->players.size(); i++)
+    {
+//        table->players[i]->switchBidding();
+    }
 
 }

@@ -24,7 +24,6 @@ public:
     static void Play();
     static void Bidding(int numofcards);
     static void Round();
-    void leaveTheRound(int i);
     static QList<Player* > activePlayers;
 };
 
