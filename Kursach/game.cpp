@@ -13,8 +13,10 @@ Game::Game()
 
 void Game::Play()
 {
- //   while(table->players.size() > 1)
+    while(true)
+    {
         Round();
+    }
 }
 
 void Game::Round()
@@ -22,16 +24,19 @@ void Game::Round()
 
     activePlayers = table->players;
 
-
     numofcommunitycards = 0;
+
     carddesk->fill();
     carddesk->shuffle();
-
 
     for (int i = 0; i < activePlayers.size(); i++)
     {
         activePlayers[i]->TakeaCard(carddesk->giveTopCard());
+        cout << "HOYA!" << endl;
         activePlayers[i]->TakeaCard(carddesk->giveTopCard());
+        cout << endl << activePlayers[i]->getLabelName();
+        cout << endl << "-----------------" << *(activePlayers[i]->getTwoCards()[0]) << endl;
+        cout << endl << "-----------------" << *(activePlayers[i]->getTwoCards()[1]) << endl;
     }
 
     assert (table->players.size() >= 2);
@@ -73,18 +78,20 @@ void Game::Round()
 
     cout << "Total pot is: " << table->getPot() << endl;
 
+    int isYouWinner = -1;
     for(int i = 0; i < roundWinner.size(); i++)
     {
         table->giveaPotToWinner(activePlayers[roundWinner[i]], roundWinner.size());
         MainWindow::getInstance()->win(activePlayers[roundWinner[i]]);
+        if(activePlayers[i]->getLabelName() == Name::YourCat)
+            isYouWinner = 1;
     }
+
+    MainWindow::getInstance()->changeBirbImg(isYouWinner);
 
     cout << "Round winners count is: " << roundWinner.size() << endl;
     cout << "Round winner's prize is: " << table->players[roundWinner[0]]->getChipStack() << endl;
 
-
-    cout << endl << "______________________" << endl;
-/*
     Player* tmp;
     tmp = table->players[0];
     for (int i = 0; i < 4; i++)
@@ -92,9 +99,11 @@ void Game::Round()
         table->players[i] = table->players[i+1];
         table->players[i]->switchRound();
     }
+
     table->players[4] = tmp;
     table->players[4]->switchRound();
-    */
+    You::dropCards();
+    table->refreshPlayersInfo();
 }
 
 Table* Game::getTable()
@@ -114,32 +123,33 @@ void Game::Bidding(int numofcards)
         numofcommunitycards++;
   }
 
-  for(int j = 0 ; j < 2; j++)
+//  for(int j = 0 ; j < 2; j++)
+  int curMinBet = 0;
+  while (true)
   {
         for (int i = 0; (i < activePlayers.size())&&(activePlayers.size() > 1) ; i++ )
         {
             int tBet = (activePlayers[i])->Parlay(table);
-            MainWindow::getInstance()->changeCatBetBox(activePlayers[i], tBet);
+            MainWindow::getInstance()->changeCatBetBox(activePlayers[i], tBet + activePlayers[i]->Bet);
 
             if(tBet == -1)
             {
                 activePlayers.removeAt(i);
                 i--;
             }
-
             else
             {
-                table->putaBet(i, tBet);
+                table->putaBet(activePlayers[i]->getLabelName(), tBet);
             }
-
+            table->printTable();
         }
+        if(Player::getMinimumBet() <= curMinBet)
+            break;
+        else
+            curMinBet = Player::getMinimumBet();
   }
 
+  Player::makeaMinimumBetEmpty();
   table->putBetsInPot();
   MainWindow::getInstance()->changePot(table->getPot());
-    for(int i = 0; i < table->players.size(); i++)
-    {
-//        table->players[i]->switchBidding();
-    }
-
 }

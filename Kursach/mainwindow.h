@@ -25,6 +25,7 @@ class MainWindow;
 }
 
 class Game;
+class Player;
 
 class MainWindow : public QMainWindow
 {
@@ -50,6 +51,7 @@ public:
     void changeYourChipStackLabel(int cs);
     void win(Player* player);
     void activateSlider(bool isactive);
+    void changeBirbImg(int whichone);
 
 private:
     QWidget *centralWidget;
@@ -67,6 +69,8 @@ private:
     QLabel* playerBetLabels[5];
     QLabel* youChipsNumber;
     QLabel* tablePot;
+
+    QLabel* Birby;
 
     QLabel* yourFirstCard;
     QLabel* yourSecondCard;

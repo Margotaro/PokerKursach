@@ -14,9 +14,10 @@ Card::Card(Suit tsuit, Rank trank)
     m_rank = trank;
 
     QString suits = "DHSC";
-    QString tPngName = "C:\\Users\\Margotaro\\Desktop\\REPOSITORY\\PokerKursach\\PekorCards\\" + suits[tsuit-1] + QString::number(trank+1) + ".png";
+    pngName = "C:\\Users\\Margotaro\\Desktop\\REPOSITORY\\PokerKursach\\PekorCards\\" + suits[tsuit-1] + QString::number(trank+1) + ".png";
     picture = new QPixmap();
-    picture->load(tPngName);
+
+    picture->load(pngName);
 }
 
 void Card::setSuit(Suit tsuit)

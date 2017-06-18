@@ -10,6 +10,7 @@
 #include <math.h>
 
 class Table;
+class Player;
 
 class AI : public Player
 {

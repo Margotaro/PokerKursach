@@ -29,7 +29,7 @@ public:
     Rank getRank() const;
     QPixmap* getCardFace() const;
     string ToString() const;
-
+    QString pngName;
     friend bool operator ==(const Card& lCard, const Card& rCard);
     friend std::ostream& operator <<(std::ostream &os, const Card &c);
 };

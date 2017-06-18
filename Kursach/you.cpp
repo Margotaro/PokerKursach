@@ -1,4 +1,5 @@
 #include "you.h"
+#include <iostream>
 
 You* You::instance = 0;
 int You::howManyCardsDoYouHaveRightNow = 0;
@@ -6,6 +7,7 @@ int You::howManyCardsDoYouHaveRightNow = 0;
 You::You(int cs) : Player(cs)
 {
     instance = this;
+    firstBetDone = false;
     playerID = Name::YourCat;
     Place = 0;
 }
@@ -18,27 +20,38 @@ void You::TakeaCard(Card* card)
     MainWindow::getInstance()->getOneYourCard(howManyCardsDoYouHaveRightNow)->setScaledContents(true);
 }
 
+void You::dropCards()
+{
+    howManyCardsDoYouHaveRightNow = 0;
+}
+
 int You::Parlay(Table *t)
 {
     setActiveForButtons(true);
 
     loop = new QEventLoop;
 
-    if(!(t->callCheck()))
+    if(!firstBetDone)
     {
-        MainWindow::getInstance()->getcallOrCheckButton()->setText("Call");
-        QObject::connect(MainWindow::getInstance()->getcallOrCheckButton(), SIGNAL(clicked()), this, SLOT(YouCall()));
+        if(!(t->callCheck()))
+        {
+            MainWindow::getInstance()->getcallOrCheckButton()->setText("Call");
+            QObject::connect(MainWindow::getInstance()->getcallOrCheckButton(), SIGNAL(clicked()), this, SLOT(YouCall()));
+        }
+        else
+        {
+            MainWindow::getInstance()->getcallOrCheckButton()->setText("Check");
+            QObject::connect(MainWindow::getInstance()->getcallOrCheckButton(), SIGNAL(clicked()), this, SLOT(YouCheck()));
+        }
+        QObject::connect(MainWindow::getInstance()->getfoldButton(), SIGNAL(clicked(bool)), this, SLOT(YouFold()));
+        QObject::connect(MainWindow::getInstance()->getallInButton(), SIGNAL(clicked(bool)), this, SLOT(YouAllIn()));
+        QObject::connect(MainWindow::getInstance()->getraiseButton(), SIGNAL(clicked(bool)), this, SLOT(YouRaise()));
+        QObject::connect(MainWindow::getInstance()->getRaiseSlider(), SIGNAL(valueChanged(int)),this,SLOT(sliderValueChanged(int)));
+        firstBetDone = true;
     }
-    else
-    {
-        MainWindow::getInstance()->getcallOrCheckButton()->setText("Check");
-        QObject::connect(MainWindow::getInstance()->getcallOrCheckButton(), SIGNAL(clicked()), this, SLOT(YouCheck()));
-    }
-    QObject::connect(MainWindow::getInstance()->getfoldButton(), SIGNAL(clicked(bool)), this, SLOT(YouFold()));
-    QObject::connect(MainWindow::getInstance()->getallInButton(), SIGNAL(clicked(bool)), this, SLOT(YouAllIn()));
-    QObject::connect(MainWindow::getInstance()->getraiseButton(), SIGNAL(clicked(bool)), this, SLOT(YouRaise()));
-    QObject::connect(MainWindow::getInstance()->getRaiseSlider(), SIGNAL(valueChanged(int)),this,SLOT(sliderValueChanged(int)));
-    return loop->exec();
+    int betIs = loop->exec();
+    cout << "betIs: " + betIs << endl;
+    return betIs;
 }
 
 void You::sliderValueChanged(int value)
@@ -80,10 +93,13 @@ void You::YouCheck()
 
 void You::YouCall()
 {
-    std::cout << "You've called";
-    yourDecision = Call();
-    setActiveForButtons(false);
-    loop->exit(yourDecision);
+    if(minimumBet <= ChipStack)
+    {
+        std::cout << "You've called";
+        yourDecision = Call();
+        setActiveForButtons(false);
+        loop->exit(yourDecision);
+    }
 }
 
 void You::YouFold()

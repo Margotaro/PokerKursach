@@ -18,11 +18,14 @@ int Player::getMinimumBet() {
 int Player::Raise(int chips)
 {
     chips += minimumBet;
+    cout << "Minimum bet is: " << minimumBet << ", Bet is: " << Bet << endl;
+    cout << "Chipstack was: " << ChipStack << endl;
     if(ChipStack - chips > 0)
     {
-        ChipStack -= chips;
+        ChipStack -= chips - Bet;
         minimumBet = chips;
-        return chips;
+        cout << "Chipstack became: " << ChipStack << endl;
+        return chips - Bet;
     }
     else
     {
@@ -35,10 +38,18 @@ int Player::Check()
    return 0;
 }
 
+void Player::makeaMinimumBetEmpty()
+{
+    minimumBet = 0;
+}
+
 int Player::Call()
 {
+    cout << "Minimum bet is: " << minimumBet << ", Bet is: " << Bet << endl;
+    cout << "Chipstack was: " << ChipStack << endl;
     ChipStack -= minimumBet - Bet;
-    return minimumBet;
+    cout << "Chipstack became: " << ChipStack << endl;
+    return minimumBet - Bet;
 }
 
 int Player::Fold()
@@ -63,18 +74,6 @@ void Player::switchRound()
     outOfRound = false;
 }
 
-//void Player::switchBidding()
-//{
-//    if(outOfGame)
-//        MainWindow::getInstance()->getCatBetLabel(table->players[i]->getLabelName())->setText("left");
-//    else if(outOfRound)
-//        MainWindow::getInstance()->getCatBetLabel(table->players[i]->getLabelName())->setText("folded");
-//    else
-//    MainWindow::getInstance()->getCatBetLabel(table->players[i]->getLabelName())->setText("0");
-//    cout << "He " << playerID <<
-
-//}
-
 void Player::takeaPot(int cs)
 {
     ChipStack += cs;
@@ -97,8 +96,10 @@ int Player::getChipStack()
 
 int Player::makeaBigBlind()
 {
+    cout << "Chipstack was: " << ChipStack << endl;
     ChipStack -= BigBlind;
     minimumBet = BigBlind;
+    cout << "Chipstack became: " << ChipStack << endl;
     Bet = BigBlind;
     return Bet;
 }

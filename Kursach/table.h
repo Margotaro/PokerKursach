@@ -29,6 +29,8 @@ public:
     AI* thirdCat;
     AI* fourthCat;
     You* mainPlayer;
+    void refreshPlayersInfo();
+    void printTable();
     // cs - количество фишек у каждого
     Table(int cs = 5000);
     QList<Card *> getCommunityCards();

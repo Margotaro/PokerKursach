@@ -36,6 +36,32 @@ QList<Card *> Table::getCommunityCards()
     return CommunityCards;
 }
 
+void Table::refreshPlayersInfo()
+{
+    for(int i = 0; i < players.size(); i++)
+    {
+        if(players[i]->isOutOfGame())
+            MainWindow::getInstance()->getCatBetLabel(players[i]->getLabelName())->setText("left");
+        else
+            if(players[i]->isOutOfRound())
+                MainWindow::getInstance()->getCatBetLabel(players[i]->getLabelName())->setText("folded");
+            else
+                MainWindow::getInstance()->getCatBetLabel(players[i]->getLabelName())->setText("0");
+    }
+}
+
+void Table::printTable()
+{
+    cout << endl << "---" << "Pot: " << Pot << endl;
+
+    for(int i = 0; i < players.size(); i++)
+    {
+        cout << "Player " << i << "Chipstack: " << players[i]->getChipStack() << endl;
+    }
+
+    cout << "---" << endl;
+}
+
 int Table::getPot()
 {
     return Pot;
@@ -63,10 +89,10 @@ bool Table::callCheck()
         for(int i = 0; i < players.size() - 1; i++)
         {
             if(!players[i]->isOutOfRound())
-               {
+            {
                 mainIndex = i;
                 break;
-                }
+            }
         }
         for(int i = mainIndex + 1; i < players.size(); i++)
         if((players[mainIndex]->Bet != players[i]->Bet)&&(!players[i]->isOutOfRound())&&(players[i]->Bet != 0))
@@ -82,4 +108,5 @@ void Table::leaveTheGame(int player)
 void Table::putaBet(int i, int chips)
 {
     players[i]->Bet += chips;
+
 }

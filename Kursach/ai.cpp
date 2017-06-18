@@ -23,33 +23,27 @@ int AI::Parlay(Table* t)
         float x = Player::getMinimumBet() / ChipStack;
         decision = (x * std::pow(2 * std::asin(persentage) / 3.1415926535, 3) + persentage * (1 - x));
     }
+    else if(persentage > 0.9)
+    {
+        return AllIn();
+    }
     else {
-        decision = std::pow(persentage, 4);
-        if(decision > 0.9)
-            return AllIn();
-        else
-           return Fold();
+        return Fold();
     }
     cout << "decision: " << decision << endl;
     if(decision <= 0.15) {
        cout << "Fold" << endl;
        return Fold();
     }
-    else if((decision <= 0.6)&&(t->callCheck())) {
-       cout << "Check" << endl;
-       return Check();
-    }
     else if(decision <= 0.6) {
        cout << "Call" << endl;
        return Call();
     }
-    else if(decision <= 0.9) {
-       cout << "Raise" << endl;
-       return Raise(decision*20);//Обрати внимание!!!
-    }
     else {
-       cout << "AllIN" << endl;
-       return AllIn();
+       cout << "Raise" << endl;
+       if(Player::getMinimumBet() < decision * 300)
+            return Raise(decision * 100);
+       return Call();
     }
 }
 

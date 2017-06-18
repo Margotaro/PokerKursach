@@ -11,6 +11,9 @@
 
 using namespace std;
 
+class Table;
+class Player;
+
 class Game
 {
 private:

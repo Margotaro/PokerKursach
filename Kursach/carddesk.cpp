@@ -32,7 +32,9 @@ int CardDesk::length()
 Card* CardDesk::giveTopCard()
 {
     if(Deck.isEmpty())
+    {
         return nullptr;
+    }
     Card* tCard = Deck.front();
     Deck.pop_front();
     return tCard;
@@ -44,6 +46,8 @@ void CardDesk::fill()
     if(!(Deck.isEmpty()))
             Deck.clear();
 
+    cout << "INIT BEGINS" << endl;
+
     for(int s = DIAMONDS; s <=CLUBS; s++)
     {
         for(int r = TWO; r <=ACE; r++)
@@ -51,6 +55,7 @@ void CardDesk::fill()
             Deck << new Card((Suit)s, (Rank)r);
         }
     }
+    cout << "INIT ENDS" << endl;
 }
 
 void CardDesk::clear()

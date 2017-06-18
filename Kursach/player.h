@@ -4,11 +4,10 @@
 #include <QLabel>
 #include <QObject>
 #include <QString>
-#include "mainwindow.h"
 
 class Table;
 
-enum Name { FirstCat = 0, SecondCat = 1, ThirdCat = 2, FourthCat = 3, YourCat = 4};
+enum Name {FirstCat = 0, SecondCat = 1, ThirdCat = 2, FourthCat = 3, YourCat = 4};
 
 class Player : public QObject
 {
@@ -48,7 +47,7 @@ public:
     int makeaSmallBlind();
     void setaMinimumBet(int minBet);
     void switchRound();
-//    void switchBidding();
+    static void makeaMinimumBetEmpty();
     void takeaPot(int cs);
     Player(int cs = 0);
     void setLabelName(Name id);

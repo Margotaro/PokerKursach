@@ -23,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     bground->setPixmap(pix);
     bground->show();
 
+    Birby = new QLabel(centralWidget);
+    Birby->setGeometry(1150, 50, 80, 80);
+    Birby->setStyleSheet("background-image: url(C:/Users/Margotaro/Desktop/REPOSITORY/Birby.png);");
+
     createButtonBox();
     createCatBetBox();
     createCommunityCardsBox();
@@ -100,9 +104,29 @@ void MainWindow::createButtonBox()
 void MainWindow::activateSlider(bool isactive)
 {
     youRaise->setMinimum(0);
-    youRaise->setMaximum(You::getInstance()->getChipStack());
+    youRaise->setMaximum(You::getInstance()->getChipStack() - Player::getMinimumBet());
     youRaise->setPageStep(You::getInstance()->getChipStack() / 5);
     youRaise->setEnabled(isactive);
+}
+
+void MainWindow::changeBirbImg(int whichone)
+{
+    if (whichone == -1)
+    {
+        Birby->resize(108, 80);
+        Birby->setStyleSheet("background-image: url(C:/Users/Margotaro/Desktop/REPOSITORY/lostBirb.png);");
+    }
+    else if (whichone == 0)
+    {
+        Birby->resize(80, 80);
+        Birby->setStyleSheet("background-image: url(C:/Users/Margotaro/Desktop/REPOSITORY/Birby.png);");
+    }
+
+    else if (whichone == 1)
+    {
+        Birby->resize(112, 89);
+        Birby->setStyleSheet("background-image: url(C:/Users/Margotaro/Desktop/REPOSITORY/winnerBirb.png);");
+    }
 }
 
 void MainWindow::createCatBetBox()
@@ -168,6 +192,7 @@ void MainWindow::changeCatBetBox(Player* player, int tBet)
         playerBetLabels[player->getLabelName()]->setText(QString::number(tBet));
     if(player->getLabelName() == Name::YourCat)
         changeYourChipStackLabel(player->getChipStack());
+    this->repaint();
 }
 
 void MainWindow::changePot(int chips)

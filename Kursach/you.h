@@ -7,6 +7,7 @@
 #include <iostream>
 
 class Table;
+class Player;
 
 class You : public Player
 {
@@ -17,10 +18,12 @@ class You : public Player
     int yourDecision;
     int sliderVariable;
     void setActiveForButtons(bool isActive);
+    bool firstBetDone;
 public:
     You(int cs = 0);
     virtual void TakeaCard(Card* card);
     virtual int Parlay(Table *t);
+    static void dropCards();
     static You* getInstance();
     QEventLoop* loop;
 public slots:
